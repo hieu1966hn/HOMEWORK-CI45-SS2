@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.input-wrapper input{
+    border: 1px solid #dbdbdb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+}
+.input-wrapper{
+    margin-bottom: 10px;
+}
+
+.btn{
+    padding: 8px 20px;
+    background-color: #037bfe;
+    color: #ffffff;
+    border-radius: 5px;
+    border: solid 1px black;
+    cursor: pointer;
+}
+.error{
+    color: red;
+}
