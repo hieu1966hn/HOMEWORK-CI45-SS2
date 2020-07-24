@@ -1,6 +1,7 @@
 const controller = {};
+// định nghĩa hàm register:
 controller.register = (data) => {
-    if (data.firstName === "") {
+    if (data.firstName.trim() === "") {
         document.getElementById("first-name-error").
             innerText = '*Please input first name';
     }
@@ -8,7 +9,7 @@ controller.register = (data) => {
         document.getElementById("first-name-error").
             innerText = '';
     }
-    if (data.lastName === "") {
+    if (data.lastName.trim() === "") {
         document.getElementById("last-name-error").
             innerText = `*Please input last name`
     }
@@ -16,7 +17,7 @@ controller.register = (data) => {
         document.getElementById("last-name-error").
             innerText = '';
     }
-    if (data.email === "") {
+    if (data.email.trim() === "") {
         document.getElementById("email-error").
             innerText = `*Please input email`
     }
@@ -32,7 +33,7 @@ controller.register = (data) => {
         document.getElementById("password-error").
             innerText = '';
     }
-    if (data.lastName === "") {
+    if (data.confirmPassword === "") {
         document.getElementById("confirm-password-error").
             innerText = `*Please confirm password`
     }
@@ -40,10 +41,26 @@ controller.register = (data) => {
         document.getElementById("confirm-password-error").
             innerText = '';
     }
+
+
+    ////// confirm password: toan tu confirmpassword    
+    data.password !== data.confirmPassword ? document.getElementById("confirm-password-error").
+        innerText = 'Confirm password is error' : document.getElementById("confirm-password-error").
+            innerText = '';
+
+/////////////// tạo user: 
+    if (data.firstName !== '' && data.lastName !== "" &&
+        data.email !== "" &&
+        data.password !== "" &&
+        data.confirmPassword !== "" &&
+        data.password === data.confirmPassword) {
+        model.register(data)
+    }
+
 };
 //////// thao tác trong login 
-controller.login = (data) =>{
-    if (data.email === "") {
+controller.login = (dataLogin) => {
+    if (dataLogin.email.trim() === "") {
         document.getElementById("email-error").
             innerText = `*Please input email`
     }
@@ -51,7 +68,7 @@ controller.login = (data) =>{
         document.getElementById("email-error").
             innerText = '';
     }
-    if (data.password === "") {
+    if (dataLogin.password === "") {
         document.getElementById("password-error").
             innerText = `*Please type password`
     }
@@ -59,4 +76,10 @@ controller.login = (data) =>{
         document.getElementById("password-error").
             innerText = '';
     }
+
+    if(dataLogin.email !== ""&&
+    dataLogin.password !== ""){
+        model.login(dataLogin);
+    }
+
 };

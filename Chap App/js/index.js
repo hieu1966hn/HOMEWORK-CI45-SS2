@@ -4,12 +4,38 @@ const init = () => {
     view.setAtiveScreen('registerScreen');
     // gọi hàm setAtive trong view
     view.setAtiveScreen('loginScreen');
+
+
+    /////////////////
+    let firebaseConfig = {
+        apiKey: "AIzaSyAiS9K-gUxihQtCR1mHMN10xmvYqFmlHtE",
+        authDomain: "chat-app-7371e.firebaseapp.com",
+        databaseURL: "https://chat-app-7371e.firebaseio.com",
+        projectId: "chat-app-7371e",
+        storageBucket: "chat-app-7371e.appspot.com",
+        messagingSenderId: "710788543449",
+        appId: "1:710788543449:web:131d1989b5a6c736421fc8",
+        measurementId: "G-5M3E942D66"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      console.log(firebase.app().name);
+    //   firebase.analytics();
+    // view.setAtiveScreen('registerScreen;')
 }
 window.onload = init; // sau khi load xong hết các js thì mới bắt đầu chạy đéne cái windown.onload này
 
-function toRegister(){
-    view.setAtiveScreen('registerScreen');
-}
-function toLogin(){
-    view.setAtiveScreen('loginScreen');
-}
+
+
+
+
+
+// có thể dùng 2 hàm này để tự addEventListenner.
+// function toRegister(){
+//     view.setAtiveScreen('registerScreen');
+// }
+// function toLogin(){
+//     view.setAtiveScreen('loginScreen');
+// }
+///////////////////////////////////////
+

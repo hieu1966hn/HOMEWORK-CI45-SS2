@@ -33,7 +33,7 @@ components.registerScreen = `
                     <div class="error" id="confirm-password-error"></div>
                 </div>
                 <div class="form-action">
-                    <span id="redirect-to-login" onclick="toLogin()">
+                    <span class = "cursor" id="redirect-to-login">
                         Already have an account? Login
                     </span>
                     <button class="btn" type="submit">
@@ -62,15 +62,20 @@ components.loginScreen = `
         </div>
 
         <div class="form-action">
-            <span id="redirect-to-register" onclick = "toRegister()">
+            <span class = "cursor" id="redirect-to-register">
                 Don't have an account? Register
             </span>
-            <button class="btn" type="submit">
+            <button id = "redirect-to-chatScreen" class="btn" type="submit">
                 Login
             </button>
         </div>
     </form>
 </div>
 </div>
+
+`;
+
+components.chatScreen = `
+<h1>This is chatScreen</h1>
 
 `;

@@ -1,0 +1,47 @@
+
+/* //////////////  css phần màn hình login    ////////////////////// */
+.login-container{
+    height: 100vh;
+    background-image: url(../img/back-ground-đăng\ nhập.jpg);
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-container .aside-right{
+    background-color: #ffffff;
+    width: 28%;
+    text-align: center;
+}
+
+.login-container .aside-right .header h3{
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(128, 120, 120);
+    text-align: center; 
+    margin-top: 30px;
+    font-weight: 200;
+}
+
+.login-container .aside-right #login-form .input-wrapper{
+    width: 100%;
+}
+
+#login-form{
+    padding: 20px;
+}
+.form-action{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.error{
+    text-align: left;
+}
+
+#redirect-to-login:hover{
+    color: red;
+}
+#redirect-to-register:hover{
+    color: red;
+}

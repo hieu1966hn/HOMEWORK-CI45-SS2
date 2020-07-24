@@ -1,0 +1,45 @@
+const model = {};
+model.currentUser = undefined;
+model.register = async (data) => {
+    try {
+        await firebase.auth().createUserWithEmailAndPassword(data.email, data.password) //dòng nay can thời gian phản hồi từ server -> chạy thằng dưới luôn
+        firebase.auth().currentUser.updateProfile({
+            displayName: data.firstName + " " + data.lastName,
+        });
+        firebase.auth().currentUser.sendEmailVerification();
+        alert("the email has been registed, please check your email");
+        view.setAtiveScreen('loginScreen');
+    } catch (err) { // no se ban error qua cai catch nay
+        console.log(err);
+        alert(err.message);
+    }
+}
+    model.login = async (dataLogin) => {
+        try {
+            const response = await firebase.auth()
+                .signInWithEmailAndPassword(dataLogin.email, dataLogin.password);
+            // sau do fire return 1 Object User
+            console.log(response);
+            if(response.user.emailVerified === false){
+                alert("please Verified your email");
+            }
+            else{
+                model.currentUser = {
+                    displayName: response.user.displayName,
+                    email:response.user.email,
+                }
+                view.setAtiveScreen('chatScreen');// de day de chuan bi viet them
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    /// thich dung then cung dc
+    // .then((res) => {
+    //     // 
+    //     
+    // }).catch(err => {
+    //     console.log(err);
+    // });
+
+
