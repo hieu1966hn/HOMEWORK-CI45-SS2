@@ -10,11 +10,11 @@ view.setAtiveScreen = (screenName) => {
         case `loginScreen`:
             //// in ra màn hình đăng nhập
             document.getElementById("app").innerHTML = components.loginScreen;
-            document.getElementById("redirect-to-register").addEventListener("click",()=>{
+            document.getElementById("redirect-to-register").addEventListener("click", () => {
                 view.setAtiveScreen('registerScreen');
             });
             const loginForm = document.getElementById("login-form");
-            loginForm.addEventListener("submit",(event)=>{
+            loginForm.addEventListener("submit", (event) => {
                 event.preventDefault();
                 const data = {
                     email: loginForm.email.value,
@@ -28,7 +28,7 @@ view.setAtiveScreen = (screenName) => {
         case 'registerScreen':
             // in ra man hinh đăng kí
             document.getElementById("app").innerHTML = components.registerScreen;
-            document.getElementById("redirect-to-login").addEventListener("click",()=>{
+            document.getElementById("redirect-to-login").addEventListener("click", () => {
                 view.setAtiveScreen('loginScreen');
             });
             const registerForm = document.getElementById("register-form");
@@ -46,13 +46,15 @@ view.setAtiveScreen = (screenName) => {
                 controller.register(data);
             });
             break;
-            ///////////// màn hình chatScreen
-            case `chatScreen`:
-                document.getElementById("app").innerHTML = components.chatScreen;
-                document.getElementById("redirect-to-chatScreen").
-                addEventListener("submit",()=>{
+        ///////////// màn hình chatScreen
+        case `chatScreen`:
+            document.getElementById("app").innerHTML = components.chatScreen;
+            document.getElementById("redirect-to-chatScreen").
+                addEventListener("submit", () => {
                     view.setAtiveScreen("chatScreen");
-                })
+                });
+            document.getElementById("welcome-user").innerText =  `Welcome to ${model.currentUser.displayName} chat app`;
+            break;
     }
 }
 

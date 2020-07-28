@@ -14,27 +14,35 @@ model.register = async (data) => {
         alert(err.message);
     }
 }
-    model.login = async (dataLogin) => {
-        try {
-            const response = await firebase.auth()
-                .signInWithEmailAndPassword(dataLogin.email, dataLogin.password);
-            // sau do fire return 1 Object User
-            console.log(response);
-            if(response.user.emailVerified === false){
-                alert("please Verified your email");
+model.login = async (dataLogin) => {
+    try {
+        const response = await firebase.auth()
+            .signInWithEmailAndPassword(dataLogin.email, dataLogin.password);
+        // sau do fire return 1 Object User
+        console.log(response);
+        if (response.user.emailVerified === false) {
+            alert("please Verified your email");
+        }
+        else {
+            model.currentUser = {
+                displayName: response.user.displayName,
+                email: response.user.email,
             }
-            else{
-                model.currentUser = {
-                    displayName: response.user.displayName,
-                    email:response.user.email,
-                }
-                view.setAtiveScreen('chatScreen');// de day de chuan bi viet them
-            }
-        } catch (err) {
-            console.log(err);
+            view.setAtiveScreen('chatScreen');// de day de chuan bi viet them
+        }
+    } catch (err) {
+        if (err.code == 'auth/user-not-found' || err.code == 'auth/invalid-email') {
+            document.getElementById('email-error').innerText = `*${err.message}`
+        } else if (err.code == 'auth/wrong-password') {
+            document.getElementById('password-error').innerText = `*${err.message}`
         }
     }
-    /// thich dung then cung dc
+}
+
+
+
+
+    /// thich dung them cung dc
     // .then((res) => {
     //     // 
     //     
