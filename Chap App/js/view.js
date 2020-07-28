@@ -49,10 +49,10 @@ view.setAtiveScreen = (screenName) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
-            document.getElementById("redirect-to-chatScreen").
-                addEventListener("submit", () => {
-                    view.setAtiveScreen("chatScreen");
-                });
+            // document.getElementById("redirect-to-chatScreen").
+            //     addEventListener("submit", () => {
+            //         view.setAtiveScreen("chatScreen");
+            //     });
             document.getElementById("welcome-user").innerText =  `Welcome to ${model.currentUser.displayName} chat app`;
             break;
     }
