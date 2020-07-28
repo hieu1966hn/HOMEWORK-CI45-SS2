@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/chatScreen.css">
     <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"/>
 </head>
 
 <body>
@@ -81,14 +82,42 @@
             </form>
         </div>
     </div> -->
-    <div class="chat-container">
+    <!-- <div class="chat-container">
         <div class="chat-header">
+            <div id="home-page">Chat App</div>
             <h1 id = "welcome-user">Chưa đổi nội dung</h1>
         </div>
         
+    </div> -->
+    <div class="chat-container">
+        <div class="header">
+            MindX Chat
+        </div>
+        
+        <div class="main">
+            <div class="conversation-detail">
+                <div class="conversation-header">
+                    First conversation
+                </div>
+                <div class="list-messages">
+                </div>
+                <form id="send-messages-form">
+                    <div class="input-wrapper">
+                        <input type="text" name="message" placeholder="Type a message">
+                    </div>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form >
+            </div>
+        </div>
+
+        
+
+
     </div>
 
-    
+
     <script src="../js/controller.js"></script>
     <script src="../js/view.js"></script>
     <script src="../js/model.js"></script>

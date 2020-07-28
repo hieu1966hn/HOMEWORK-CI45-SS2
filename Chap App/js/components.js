@@ -78,7 +78,7 @@ components.loginScreen = `
 components.chatScreen = `
 <div class="chat-container">
         <div class="chat-header">
-            <h1 id = "welcome-user"> em vẫn đang bị lỗi phần này => Chưa đổi được nội dung</h1>
+            <h1 id = "welcome-user"></h1>
         </div>
     </div>
 `;

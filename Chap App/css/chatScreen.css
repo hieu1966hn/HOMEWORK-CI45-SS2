@@ -1,11 +1,69 @@
-.chat-container{
+/* .chat-container{
     background-image: url(../img/tech.jpg);
     height: 100vh;
     background-size: cover;
-}
+} */
 .chat-container .chat-header h1{
     color: #ffffff;
     text-align: center;
     padding-top: 30px;
     font-size: 50px;
+}
+.header{
+    height: 64px;
+    background-color: #037bfe;
+    line-height: 64px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+}
+.chat-container{
+    height: 100vh;
+}
+.chat-container .main{
+    height: calc(100% - 64px);
+    /* phai space no ra neu khong la code css se khong chay */
+}
+
+.main .conversation-detail .conversation-header{
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 32px;
+    border-bottom: 0.5px solid #cfcccc;
+}
+
+.chat-container .main .conversation-detail{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+ .conversation-detail .list-messages {
+    flex-grow: 1;
+}
+#send-messages-form .input-wrapper {
+    margin-bottom: 0px;
+}
+
+
+
+#send-messages-form .input-wrapper input{
+    border: none;
+    border-top: 1px solid #dbdbdb;
+    height: 64px;
+}
+
+#send-messages-form{
+    position: relative;
+}
+#send-messages-form button{
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    border: none;
+    background: none;
+    color: blue;
+    font-size: 24px;
+    
 }

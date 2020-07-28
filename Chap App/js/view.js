@@ -53,7 +53,7 @@ view.setAtiveScreen = (screenName) => {
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
             //     });
-            document.getElementById("welcome-user").innerText =  `Welcome to ${model.currentUser.displayName} chat app`;
+            document.getElementById("welcome-user").innerText =  `Welcome to ${model.currentUser.displayName} to the chat app`;
             break;
     }
 }
