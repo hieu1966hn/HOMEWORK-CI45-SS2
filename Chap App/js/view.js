@@ -62,8 +62,8 @@ view.setAtiveScreen = (screenName) => {
                     owner: model.currentUser.email,
                 }
                 const botMessage = {
-                    content: sendMessageForm.message.value + ` too`,
-                    owner: `bot`,
+                    content: sendMessageForm.message.value,
+                    owner: `Bot`,
                 }
                 view.addMessage(message);
                 view.addMessage(botMessage);
@@ -79,24 +79,27 @@ view.addMessage = (message) => {
     messageWrapper.classList.add('message-container'); // them class cho the do
     if (message.owner === model.currentUser.email) {
         messageWrapper.classList.add('mine');
-        messageWrapper.innerHTML = `
+        if (message.content === message.content.trim() && message.content.trim() != "") {
+            messageWrapper.innerHTML = `
         <div class="content">
             ${message.content}
         </div>
         `;
+        }
     }
     else {
         messageWrapper.classList.add('their');
-        messageWrapper.innerHTML = `
-        <div class = "owner">
-        ${message.owner}
-        </div>
-        <div class = "content">
-        ${message.content}
-        </div>
-        `;
+        if (message.content === (message.content.trim() +" ") && message.content.trim() != "") {
+            messageWrapper.innerHTML = `
+            <div class = "owner">
+            ${message.owner}
+            </div>
+            <div class = "content">
+            ${message.content}
+            </div>
+            `;
+        }
     }
-
     document.querySelector(".list-messages").appendChild(messageWrapper);
     //  dau la cha -> sau . la con
 }

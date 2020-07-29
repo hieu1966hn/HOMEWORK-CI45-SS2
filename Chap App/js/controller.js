@@ -83,3 +83,9 @@ controller.login = (dataLogin) => {
     }
 
 };
+////// controller chatApp nè
+// controller.chatApp = (dataChat)=>{
+//     if(dataChat.message != ``){
+//         model.chatScreen(dataChat);
+//     }
+// }

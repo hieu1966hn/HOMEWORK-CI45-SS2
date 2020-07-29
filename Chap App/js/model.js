@@ -39,6 +39,22 @@ model.login = async (dataLogin) => {
     }
 }
 
+// code moi o day thu xem co bi ra man hinh login nua khong nhe
+
+// model.chatScreen = async(dataChat)=>{
+//     try {
+//         const noReload = await firebase.auth().onAuthStateChanged(function(user) {
+//             if (user) {
+//               // User is signed in.
+//                 view.setAtiveScreen('chatScreen');
+//             }
+//           });
+//     }
+//     catch(err) {
+//         alert(err.message);
+//     }
+// }
+
 
 
 

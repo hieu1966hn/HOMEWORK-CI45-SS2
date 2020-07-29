@@ -65,7 +65,10 @@
     background: none;
     color: blue;
     font-size: 24px;
+
 }
+#send-messages-form button:hover {opacity: 0.6}
+#send-messages-form button:active {transform: scale(1.2); }
 
 /* css cho tin list-message */
 .chat-container .list-messages{
