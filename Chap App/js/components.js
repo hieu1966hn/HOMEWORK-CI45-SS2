@@ -48,7 +48,7 @@ components.loginScreen = `
 <div class="login-container">
 <div class="aside-right">
     <div class="header">
-        <h3>MindX Chat</h3>
+        <h3 id = "loginScreen-content">MindX Chat</h3>
     </div>
     
     <form id="login-form">
@@ -77,8 +77,29 @@ components.loginScreen = `
 
 components.chatScreen = `
 <div class="chat-container">
-        <div class="chat-header">
-            <h1 id = "welcome-user"></h1>
+<div class="header">
+    MindX Chat
+</div>
+<div class="main">
+    <div class="conversation-detail">
+        <div class="conversation-header">
+            First conversation
         </div>
+        <div class="list-messages">
+            <div class="message-container mine">   
+            </div >
+            <div class="message-container their">    
+            </div>
+        </div>
+        <form id="send-messages-form">
+            <div class="input-wrapper">
+                <input type="text" name="message" placeholder="Type a message">
+            </div>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
     </div>
+</div>
+</div>
 `;

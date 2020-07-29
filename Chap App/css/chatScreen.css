@@ -9,7 +9,7 @@
     padding-top: 30px;
     font-size: 50px;
 }
-.header{
+.chat-container .header{
     height: 64px;
     background-color: #037bfe;
     line-height: 64px;
@@ -65,5 +65,36 @@
     background: none;
     color: blue;
     font-size: 24px;
+}
+
+/* css cho tin list-message */
+.chat-container .list-messages{
+    padding: 10px;
+    overflow-y: auto;
+
+}
+.chat-container .list-messages .message-container{
+    margin-bottom: 3px;
+}
+.chat-container .message-container .content{
+    padding: 7px 10px;
+    border-radius: 5px;
+    max-width: 40%;
+    width: max-content;
     
 }
+
+.chat-container .message-container.their .content{
+    background: #b9b9b9;
+}
+
+.chat-container .message-container.mine{
+    text-align: right; 
+    /* phai co buoc nay thi buoc duoi moi lam duoc */
+}
+.chat-container .message-container.mine .content{
+    background: #383ac2;
+    color: #ffffff;
+    display: inline-block;
+}
+

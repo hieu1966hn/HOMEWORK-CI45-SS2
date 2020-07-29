@@ -1,5 +1,8 @@
 
 /* //////////////  css phần màn hình login    ////////////////////// */
+/* #loginScreen-content{
+    color: #ffffff;
+} */
 .login-container{
     height: 100vh;
     background-image: url(../img/back-ground-đăng\ nhập.jpg);
