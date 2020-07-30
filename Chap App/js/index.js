@@ -20,6 +20,16 @@ const init = () => {
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       console.log(firebase.app().name);
+
+      // cái thằng này nó thực hiện khi mà người dùng thay đổi trạng thái: đăng kí, đăng nhập, đang
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          view.setAtiveScreen('chatScreen');
+          // User is signed in.
+        }
+      });
+
+
     //   firebase.analytics();
     // view.setAtiveScreen('registerScreen;')
 }

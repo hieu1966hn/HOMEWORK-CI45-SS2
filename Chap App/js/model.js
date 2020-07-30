@@ -47,6 +47,7 @@ model.login = async (dataLogin) => {
 //             if (user) {
 //               // User is signed in.
 //                 view.setAtiveScreen('chatScreen');
+//                 // console.log(user);
 //             }
 //           });
 //     }
