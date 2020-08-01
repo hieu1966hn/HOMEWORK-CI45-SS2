@@ -57,18 +57,19 @@ view.setAtiveScreen = (screenName) => {
             const sendMessageForm = document.getElementById("send-messages-form")
             sendMessageForm.addEventListener("submit", (e) => {
                 e.preventDefault();
-                const message = {
-                    content: sendMessageForm.message.value,
-                    owner: model.currentUser.email,
+                if(sendMessageForm.message.value.trim() !==""){
+                    const message = {
+                        content: sendMessageForm.message.value,
+                        owner: model.currentUser.email,
+                    }
+                    const botMessage = {
+                        content: sendMessageForm.message.value,
+                        owner: `Bot`,
+                    }
+                    view.addMessage(message);
+                    view.addMessage(botMessage);
+                    sendMessageForm.message.value = '';
                 }
-                const botMessage = {
-                    content: sendMessageForm.message.value,
-                    owner: `Bot`,
-                }
-                view.addMessage(message);
-                view.addMessage(botMessage);
-                sendMessageForm.message.value = '';
-
             });
             break;
     }
@@ -79,17 +80,17 @@ view.addMessage = (message) => {
     messageWrapper.classList.add('message-container'); // them class cho the do
     if (message.owner === model.currentUser.email) {
         messageWrapper.classList.add('mine');
-        if (message.content === message.content.trim() && message.content.trim() != "") {
+        
             messageWrapper.innerHTML = `
         <div class="content">
             ${message.content}
         </div>
         `;
-        }
+        
     }
     else {
         messageWrapper.classList.add('their');
-        if (message.content === (message.content.trim() +" ") && message.content.trim() != "") {
+        
             messageWrapper.innerHTML = `
             <div class = "owner">
             ${message.owner}
@@ -98,7 +99,7 @@ view.addMessage = (message) => {
             ${message.content}
             </div>
             `;
-        }
+        
     }
     document.querySelector(".list-messages").appendChild(messageWrapper);
     //  dau la cha -> sau . la con

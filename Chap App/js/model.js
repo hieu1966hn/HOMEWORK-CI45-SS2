@@ -19,17 +19,20 @@ model.login = async (dataLogin) => {
         const response = await firebase.auth()
             .signInWithEmailAndPassword(dataLogin.email, dataLogin.password);
         // sau do fire return 1 Object User
-        console.log(response);
-        if (response.user.emailVerified === false) {
-            alert("please Verified your email");
-        }
-        else {
-            model.currentUser = {
-                displayName: response.user.displayName,
-                email: response.user.email,
-            }
-            view.setAtiveScreen('chatScreen');// de day de chuan bi viet them
-        }
+        // console.log(response);
+        // if (response.user.emailVerified === false) {
+        //     alert("please Verified your email");
+        // }
+        // else {
+        //     // model.currentUser = {
+        //     //     displayName: response.user.displayName,
+        //     //     email: response.user.email,
+        //     // }
+        //     view.setAtiveScreen('chatScreen');// de day de chuan bi viet them
+        // }
+
+
+        ///////////////////// tại sao phải comment đoạn này ?????: 
     } catch (err) {
         if (err.code == 'auth/user-not-found' || err.code == 'auth/invalid-email') {
             document.getElementById('email-error').innerText = `*${err.message}`
