@@ -19,7 +19,7 @@ const init = () => {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  console.log(firebase.app().name);
+  console.log(firebase.app().name); // cai nay de hien cai default ( chua hieu cong dung lam)
   // firestoreFuntion();
 
   // cái thằng này nó thực hiện khi mà người dùng thay đổi trạng thái: đăng kí, đăng nhập, đang kí
@@ -98,7 +98,7 @@ firestoreFuntion = async () => {
     name: 'Soai ca',
     phoneNumber: firebase.firestore.FieldValue.arrayUnion('091'),
   }
-  firebase.firestore().collection('users').doc(documentIdUpdate).update(dataToUpdate);
+  firebase.firestore().collection('users').doc(documentIdUpdate).update(dataToUpdate); // neu torng truong du lieu chua co ( may co update ho cho khong ta ???).
 
 
 
@@ -113,7 +113,7 @@ firestoreFuntion = async () => {
 }
 
 getDataFromDoc = (doc) => {
-  const data = doc.data();
+  const data = doc.data(); // ham data() nay de lam gi nhi??
   data.id = doc.id;
   return data;
 }

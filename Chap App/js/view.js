@@ -52,24 +52,53 @@ view.setAtiveScreen = (screenName) => {
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
-            //     });
+            //     }); phải hỏi anh Chinh phần này mới được.
             // document.getElementById("welcome-user").innerText =  `Welcome to ${model.currentUser.displayName} to the chat app`;
-            const sendMessageForm = document.getElementById("send-messages-form")
+            
+            const sendMessageForm = document.getElementById("send-messages-form");
             sendMessageForm.addEventListener("submit", (e) => {
                 e.preventDefault();
-                if(sendMessageForm.message.value.trim() !==""){
-                    const message = {
-                        content: sendMessageForm.message.value,
-                        owner: model.currentUser.email,
-                    }
-                    const botMessage = {
-                        content: sendMessageForm.message.value,
-                        owner: `Bot`,
-                    }
+                // if(sendMessageForm.message.value.trim() !==""){
+                //     const message = {
+                //         content: sendMessageForm.message.value,
+                //         owner: model.currentUser.email,
+                //     }
+                //     const botMessage = {
+                //         content: sendMessageForm.message.value,
+                //         owner: `Bot`,
+                //     }
+                //     view.addMessage(message);
+                //     view.addMessage(botMessage);
+
+                //     sendMessageForm.message.value = '';
+
+                // }
+
+                ///////////////////// thu cach nay nha
+
+                const message ={
+                    content: sendMessageForm.message.value,
+                    owner: model.currentUser.email,
+                };
+                const botMessage = {
+                    content: sendMessageForm.message.value,
+                    owner: `Bot`,
+                }
+                const reg = /\S/g;
+                /////// xu lí chuỗi 
+                if (message.content == '' || !reg.test(message.content)) {
+                    sendMessageForm.message.value = '';
+                } else {
                     view.addMessage(message);
                     view.addMessage(botMessage);
-                    sendMessageForm.message.value = '';
                 }
+                sendMessageForm.message.value = "";
+                const documentId = "GeCzYmLfCIV6epHKe5z8";
+                const addMessage = {
+                    Messages: firebase.firestore.FieldValue.arrayUnion(message),
+                };
+                firebase.firestore().collection("conversations").doc(documentId).update(addMessage); // add all tin nhan len firebase google
+
             });
             break;
     }
@@ -103,5 +132,9 @@ view.addMessage = (message) => {
     }
     document.querySelector(".list-messages").appendChild(messageWrapper);
     //  dau la cha -> sau . la con
+}
+function addMessageToDocument(message){     
+    
+
 }
 
