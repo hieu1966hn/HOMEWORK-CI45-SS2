@@ -1,3 +1,4 @@
+
 const controller = {};
 // định nghĩa hàm register:
 controller.register = (data) => {

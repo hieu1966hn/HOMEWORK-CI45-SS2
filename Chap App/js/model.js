@@ -1,5 +1,15 @@
 const model = {};
 model.currentUser = undefined;
+
+// 2 cai duoi dung de luu du lieu cuoc tro chuyen
+model.conversations = undefined;  // thuoc tinh luu lai nhung cuoc tro chuyen va dat vao trong conversations
+model.currentConversations = undefined; //cuoc tro chuyen dang duoc show len man hinh (cuoc tro chuyen hien tai @@) -> sau nay lam cho tien. @@.
+
+model.collectionName = `conversations`;
+// luu  cai nay de lam gi ?: luu lai cai ten collection cua minh tren firebase 
+
+
+
 model.register = async (data) => {
     try {
         await firebase.auth().createUserWithEmailAndPassword(data.email, data.password) //dòng nay can thời gian phản hồi từ server -> chạy thằng dưới luôn
@@ -41,33 +51,72 @@ model.login = async (dataLogin) => {
         }
     }
 }
+/// thich dung them cung dc
+// .then((res) => {
+//     // 
+//     
+// }).catch(err => {
+//     console.log(err);
+// });
 
-// code moi o day thu xem co bi ra man hinh login nua khong nhe
+model.addMessage = (message) => { // nhan vao la 1 tin nhan
+    const dataToUpDate = {
+        messages: firebase.firestore.FieldValue.arrayUnion(message), /// cu phap cua firebase de update them vao trong cac truong cua no
 
-// model.chatScreen = async(dataChat)=>{
-//     try {
-//         const noReload = await firebase.auth().onAuthStateChanged(function(user) {
-//             if (user) {
-//               // User is signed in.
-//                 view.setAtiveScreen('chatScreen');
-//                 // console.log(user);
-//             }
-//           });
-//     }
-//     catch(err) {
-//         alert(err.message);
-//     }
-// }
+    }
+    firebase.firestore().collection('conversations').doc(`GeCzYmLfCIV6epHKe5z8`).update(dataToUpDate);
+}
 
+model.loadConversations = async () => {
+    const response = await firebase.firestore().collection(model.collectionName).where("users", "array-contains", model.currentUser.email).get(); // goi firebase de lay ve
+    // array-contains: 
+    console.log(getDataFromDocs(response.docs));
+    model.conversations = getDataFromDocs(response.docs); // lay du lieu ve
+    if (model.conversations.length > 0) { // xet dk tranh truong hop khong ton tai cuoc tro chuyen nao ca
+        model.currentConversations = model.conversations[0];
+        view.showCurrentConversation();
+    }
+    else {
+        alert("you don't have any conversations. Please make one!!");
+    }
+}
 
+model.listenConversationsChange = () => {
+    let isFirstRun = true;
+    firebase.firestore().collection(model.collectionName)
+        .where('users', 'array-contains', model.currentUser.email)
+        .onSnapshot((res) => { // lang nghe thay doi khi 1 ban ghi nao do bi thay doi
+            if (isFirstRun) {
+                isFirstRun = false;
+                return // nhu nay la no se thoat ra luon => tu lan thu 2: isFirstRun se luon la false  ===>> only 1 lan duy nhat la true;
+            }
 
+            //docChanges() : ham co san firebase cung cap cho minh.
+            const docChanges = res.docChanges(); // de lam gi ??? 1 list cac document bi thay doi => sd for de show ra
+            // console.log(res.docChanges()); // de lam gi????
+            for (oneChange of docChanges) {
+                // console.log(oneChange);
+                const type = oneChange.type;
+                if (type == `modified`) {
+                    const docData = getDataFromDoc(oneChange.doc); //doc o day la du lieu trong document
+                    console.log(docData);
+                    // updata lai model.conversations
+                    for (let index = 0; index < model.conversations.length; index++) {
+                        if (model.conversations[index].id === docData.id) {
+                            model.conversations[index] = docData; // buoc dong bo firestore giong voi ca local cua minh @@
+                        }
+                    }
 
-    /// thich dung them cung dc
-    // .then((res) => {
-    //     // 
-    //     
-    // }).catch(err => {
-    //     console.log(err);
-    // });
-
+                    // update model.currentConversation
+                    if (docData.id === model.currentConversations.id) { // ve doc lai doan nay nhe
+                        model.currentConversations = docData; 
+                        // them 1 tin nhan cuoi cung la dep => do ton bo nho @@
+                        const lastMessage = docData.messages[docData.messages.length-1];
+                        view.addMessage(lastMessage);
+                        view.scrollToEndElement();
+                    }   
+                }
+            }
+        });
+}
 

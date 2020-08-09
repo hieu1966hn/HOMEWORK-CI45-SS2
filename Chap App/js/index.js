@@ -38,8 +38,6 @@ const init = () => {
       alert("Please check your email");
     }
   });
-
-
   //   firebase.analytics();
   // view.setAtiveScreen('registerScreen;')
 }

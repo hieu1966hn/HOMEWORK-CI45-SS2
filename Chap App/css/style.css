@@ -28,3 +28,6 @@
 .cursor{
     cursor: pointer;
 }
+.content{
+    word-break: break-all;
+}
