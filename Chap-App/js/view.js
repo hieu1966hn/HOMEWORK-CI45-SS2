@@ -1,6 +1,6 @@
 const view = {}; // dùng để hiển thị lên màn hình giao diện cho người dùng
 
-view.setAtiveScreen = (screenName) => {
+view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
     switch (screenName) {
         case 'welcomeScreen':
             document.getElementById("app").innerHTML = components.welcomeScreen;
@@ -49,6 +49,7 @@ view.setAtiveScreen = (screenName) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
+            console.log('aaa');
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
@@ -103,9 +104,29 @@ view.setAtiveScreen = (screenName) => {
                 // };
                 // firebase.firestore().collection("conversations").doc(documentId).update(addMessage); // add all tin nhan len firebase google
 
+
+
+            });
+            if (!fromCreateConversation) {
                 model.loadConversations();  // mới vào sẽ hiển thị lên cuộc hội thoại
                 model.listenConversationsChange(); // lang nghe all change in conversation 
+            }
+            else{ // phai co 2 doan nay moi them div con vao trong list hoi thoai sau khi click Cancel;
+                view.showConversation();
+                view.showCurrentConversation();
+            }
 
+            // document.getElementById("app").innerHTML = components.createConversation;
+
+            document.querySelector(".create-conversation .btn").addEventListener("click", function () {
+                view.setAtiveScreen('createConversation');
+            })
+            break;
+        /////////// man hinh createConversation
+        case `createConversation`:
+            document.getElementById("app").innerHTML = components.createConversation;
+            document.querySelector("#back-to-chat").addEventListener("click", function () {
+                view.setAtiveScreen(`chatScreen`,true);
             });
             break;
     }
@@ -142,20 +163,46 @@ view.addMessage = (message) => {
 }
 
 view.showCurrentConversation = () => {
+    document.querySelector(".list-messages").innerHTML = "";
     // doi ten cuoc tro chuyen
     document.getElementsByClassName("conversation-header")[0]  // tai vi tri 0
-        .innerText = model.currentConversations.title;
+        .innerText = model.currentConversation.title;
     // in cac tin nhan len man hinh
-
-
-    for (message of model.currentConversations.messages) {
+    for (message of model.currentConversation.messages) {
         view.addMessage(message); // day tung cai tin nhan len man hinh bang vong lap for --- of 
     }
     view.scrollToEndElement();
 }
 
 view.scrollToEndElement = () => {
-    const  element = document.querySelector('.list-messages');
+    const element = document.querySelector('.list-messages');
     element.scrollTop = element.scrollHeight;
 }
 
+view.showConversation = () => {
+    for (oneConversation of model.conversations) {
+        view.addConversation(oneConversation);
+    }
+}
+view.addConversation = (conversation) => {
+    const conversationWrapper = document.createElement('div');
+    conversationWrapper.className = 'conversation cursor'; /// them 2 class vao day
+    if (model.currentConversation.id === conversation.id) {
+        conversationWrapper.classList.add('current');
+    }
+    conversationWrapper.innerHTML = `
+    <div class = "conversation-title">${conversation.title}</div>
+    <div class = "conversation-num-user">${conversation.users.length} users</div>   
+    `
+    conversationWrapper.addEventListener('click', () => {
+        // thay doi giao dien, doi current
+        document.querySelector(".current").classList.remove("current");
+        conversationWrapper.classList.add("current");
+        //thay doi model.currentConversation
+        model.currentConversation = conversation;
+        //in cac tin nhan cua model.currentConversation len man hinh
+        view.showCurrentConversation();
+    });
+
+    document.querySelector(".list-conversation").append(conversationWrapper);
+}

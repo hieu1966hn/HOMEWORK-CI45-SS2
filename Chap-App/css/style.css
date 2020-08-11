@@ -14,6 +14,8 @@
     margin-bottom: 10px;
 }
 
+
+
 .btn{
     padding: 8px 20px;
     background-color: #037bfe;
@@ -30,4 +32,17 @@
 }
 .content{
     word-break: break-all;
+}
+
+.header{
+    height: 64px;
+    background-color: #037bfe;
+    line-height: 64px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+}
+.btn.btn-light{
+    background-color: unset;
+    color: #333333;
 }

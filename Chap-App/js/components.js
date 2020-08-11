@@ -77,29 +77,74 @@ components.loginScreen = `
 
 components.chatScreen = `
 <div class="chat-container">
-<div class="header">
-    MindX Chat
-</div>
-<div class="main">
-    <div class="conversation-detail">
-        <div class="conversation-header">
-            First conversation
+        <div class="header">
+            MindX Chat
         </div>
-        <div class="list-messages">
-            <div class="message-container mine">   
-            </div >
-            <div class="message-container their">    
+
+        <div class="main">
+            <div class="aside-left">
+                <div class="create-conversation">
+                    <button class="btn">
+                        + New conversation
+                    </button>
+                </div>
+                <div class="list-conversation">                
+                    <div class="conversation"></div>
+                </div>
+            </div>
+            <div class="conversation-detail">
+                <div class="conversation-header">
+                    First conversation
+                </div>
+                <div class="list-messages">
+                    <div class="message-container mine">
+                        <div class="content">
+                            hello world
+                        </div>
+                    </div>
+
+                    <div class="message-container their">
+                        <div class="owner">
+                            abcxyz@gmail.com
+                        </div>
+                        <div class="content">
+                            hiiiiiiiiiiiiiiii
+                        </div>
+                    </div>
+                </div>
+                <form id="send-messages-form">
+                    <div class="input-wrapper">
+                        <input type="text" name="message" placeholder="Type a message">
+                    </div>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
         </div>
-        <form id="send-messages-form">
-            <div class="input-wrapper">
-                <input type="text" name="message" placeholder="Type a message">
-            </div>
-            <button type="submit">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </form>
     </div>
-</div>
-</div>
+`;
+components.createConversation = `
+ <div class="create-conversation-container">
+        <div class="header">
+            MindX chat
+        </div>
+        <div class="main" style="padding: 50px 30%">
+            <form id="create-conversation-form">
+                <div>
+                    Create a new conversation
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Conversation name" name="conversationTitle">
+                    <div class="error" id="conversation-name-error"></div>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Friend name" name="conversationEmail">
+                    <div class="error" id="conversation-email-error"></div>
+                </div>
+                <button class="btn" type="submit">Save</button>
+                <button class="btn btn-light" type="button" id="back-to-chat">Cancel</button>
+            </form>
+        </div>
+    </div>
 `;

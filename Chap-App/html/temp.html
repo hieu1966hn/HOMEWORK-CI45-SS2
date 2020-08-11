@@ -88,13 +88,32 @@
             <h1 id = "welcome-user">Chưa đổi nội dung</h1>
         </div>
     </div> -->
-    <div class="chat-container">
+
+    <!-- <div class="chat-container">
         <div class="header">
             MindX Chat
-            <button class="back-to-login" ></button>
         </div>
 
         <div class="main">
+            <div class="aside-left">
+                <div class="create-conversation">
+                    <button class="btn">
+                        + New conversation
+                    </button>
+                </div>
+                <div class="list-conversation">
+                    <div class="conversation current cursor">
+                        <div class="conversation-title">First conversation</div>
+                        <div class="conversation-num-user">2 users</div>
+                    </div>
+
+                    <div class="conversation cursor">
+                        <div class="conversation-title">First conversation</div>
+                        <div class="conversation-num-user">2 users</div>
+                    </div>
+                    <div class="conversation"></div>
+                </div>
+            </div>
             <div class="conversation-detail">
                 <div class="conversation-header">
                     First conversation
@@ -104,7 +123,7 @@
                         <div class="content">
                             hello world
                         </div>
-                    </div >
+                    </div>
 
                     <div class="message-container their">
                         <div class="owner">
@@ -125,8 +144,30 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
+    <div class="create-conversation-container">
+        <div class="header">
+            MindX chat
+        </div>
+        <div class="main" style="padding: 50px 30%">
+            <form id="create-conversation-form">
+                <div>
+                    Create a new conversation
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Conversation name" name="conversationTitle">
+                    <div class="error" id="conversation-name-error"></div>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Friend name" name="conversationEmail">
+                    <div class="error" id="conversation-email-error"></div>
+                </div>
+                <button class="btn" type="submit">Save</button>
+                <button class="btn btn-light" type="button" id="back-to-chat">Cancel</button>
+            </form>
+        </div>
+    </div>
 
     <script src="../js/controller.js"></script>
     <script src="../js/view.js"></script>

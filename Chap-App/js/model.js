@@ -3,7 +3,7 @@ model.currentUser = undefined;
 
 // 2 cai duoi dung de luu du lieu cuoc tro chuyen
 model.conversations = undefined;  // thuoc tinh luu lai nhung cuoc tro chuyen va dat vao trong conversations
-model.currentConversations = undefined; //cuoc tro chuyen dang duoc show len man hinh (cuoc tro chuyen hien tai @@) -> sau nay lam cho tien. @@.
+model.currentConversation = undefined; //cuoc tro chuyen dang duoc show len man hinh (cuoc tro chuyen hien tai @@) -> sau nay lam cho tien. @@.
 
 model.collectionName = `conversations`;
 // luu  cai nay de lam gi ?: luu lai cai ten collection cua minh tren firebase 
@@ -24,6 +24,7 @@ model.register = async (data) => {
         alert(err.message);
     }
 }
+
 model.login = async (dataLogin) => {
     try {
         const response = await firebase.auth()
@@ -68,17 +69,19 @@ model.addMessage = (message) => { // nhan vao la 1 tin nhan
 }
 
 model.loadConversations = async () => {
+    console.log('kkkk');
     const response = await firebase.firestore().collection(model.collectionName).where("users", "array-contains", model.currentUser.email).get(); // goi firebase de lay ve
     // array-contains: 
     console.log(getDataFromDocs(response.docs));
     model.conversations = getDataFromDocs(response.docs); // lay du lieu ve
     if (model.conversations.length > 0) { // xet dk tranh truong hop khong ton tai cuoc tro chuyen nao ca
-        model.currentConversations = model.conversations[0];
+        model.currentConversation = model.conversations[0];
         view.showCurrentConversation();
     }
-    else {
-        alert("you don't have any conversations. Please make one!!");
-    }
+    view.showConversation();
+    // else {
+    //     alert("you don't have any conversations. Please make one!!");
+    // }
 }
 
 model.listenConversationsChange = () => {
@@ -108,8 +111,8 @@ model.listenConversationsChange = () => {
                     }
 
                     // update model.currentConversation
-                    if (docData.id === model.currentConversations.id) { // ve doc lai doan nay nhe
-                        model.currentConversations = docData; 
+                    if (docData.id === model.currentConversation.id) { // ve doc lai doan nay nhe
+                        model.currentConversation = docData; 
                         // them 1 tin nhan cuoi cung la dep => do ton bo nho @@
                         const lastMessage = docData.messages[docData.messages.length-1];
                         view.addMessage(lastMessage);
