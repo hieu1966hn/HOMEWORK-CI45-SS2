@@ -49,7 +49,6 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
-            console.log('aaa');
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
@@ -111,7 +110,7 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
                 model.loadConversations();  // mới vào sẽ hiển thị lên cuộc hội thoại
                 model.listenConversationsChange(); // lang nghe all change in conversation 
             }
-            else{ // phai co 2 doan nay moi them div con vao trong list hoi thoai sau khi click Cancel;
+            else { // phai co 2 doan nay moi them div con vao trong list hoi thoai sau khi click Cancel;
                 view.showConversation();
                 view.showCurrentConversation();
             }
@@ -126,8 +125,19 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
         case `createConversation`:
             document.getElementById("app").innerHTML = components.createConversation;
             document.querySelector("#back-to-chat").addEventListener("click", function () {
-                view.setAtiveScreen(`chatScreen`,true);
+                view.setAtiveScreen(`chatScreen`, true);
             });
+            const createConversation = document.getElementById("create-conversation-form")
+            createConversation.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const newConversation = {
+                    conversationTitle: createConversation.conversationTitle.value,
+                    conversationEmail: createConversation.conversationEmail.value,
+                };
+                controller.createConversationScreen(newConversation);
+                firebase.firestore().collection('conversations').add(newConversation);
+            });
+            model.addDocument(newConversation);
             break;
     }
 }
@@ -204,5 +214,5 @@ view.addConversation = (conversation) => {
         view.showCurrentConversation();
     });
 
-    document.querySelector(".list-conversation").append(conversationWrapper);
+    document.querySelector(".list-conversation").appendChild(conversationWrapper);
 }

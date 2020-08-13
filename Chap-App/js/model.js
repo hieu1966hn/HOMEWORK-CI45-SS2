@@ -60,6 +60,8 @@ model.login = async (dataLogin) => {
 //     console.log(err);
 // });
 
+
+
 model.addMessage = (message) => { // nhan vao la 1 tin nhan
     const dataToUpDate = {
         messages: firebase.firestore.FieldValue.arrayUnion(message), /// cu phap cua firebase de update them vao trong cac truong cua no
@@ -78,6 +80,7 @@ model.loadConversations = async () => {
         model.currentConversation = model.conversations[0];
         view.showCurrentConversation();
     }
+    //co the them o day thu xem
     view.showConversation();
     // else {
     //     alert("you don't have any conversations. Please make one!!");

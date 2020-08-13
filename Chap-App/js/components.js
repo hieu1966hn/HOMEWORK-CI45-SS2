@@ -48,7 +48,7 @@ components.loginScreen = `
 <div class="login-container">
 <div class="aside-right">
     <div class="header">
-        <h3 id = "loginScreen-content">MindX Chat</h3>
+        <h3 id = "loginScreen-content" style="color: white;">MindX Chat</h3>
     </div>
     
     <form id="login-form">
