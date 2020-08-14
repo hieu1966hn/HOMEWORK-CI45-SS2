@@ -65,9 +65,8 @@ model.login = async (dataLogin) => {
 model.addMessage = (message) => { // nhan vao la 1 tin nhan
     const dataToUpDate = {
         messages: firebase.firestore.FieldValue.arrayUnion(message), /// cu phap cua firebase de update them vao trong cac truong cua no
-
     }
-    firebase.firestore().collection('conversations').doc(`GeCzYmLfCIV6epHKe5z8`).update(dataToUpDate);
+    firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpDate);
 }
 
 model.loadConversations = async () => {
@@ -96,7 +95,6 @@ model.listenConversationsChange = () => {
                 isFirstRun = false;
                 return // nhu nay la no se thoat ra luon => tu lan thu 2: isFirstRun se luon la false  ===>> only 1 lan duy nhat la true;
             }
-
             //docChanges() : ham co san firebase cung cap cho minh.
             const docChanges = res.docChanges(); // de lam gi ??? 1 list cac document bi thay doi => sd for de show ra
             // console.log(res.docChanges()); // de lam gi????
@@ -115,14 +113,22 @@ model.listenConversationsChange = () => {
 
                     // update model.currentConversation
                     if (docData.id === model.currentConversation.id) { // ve doc lai doan nay nhe
-                        model.currentConversation = docData; 
+                        model.currentConversation = docData;
                         // them 1 tin nhan cuoi cung la dep => do ton bo nho @@
-                        const lastMessage = docData.messages[docData.messages.length-1];
+                        const lastMessage = docData.messages[docData.messages.length - 1];
                         view.addMessage(lastMessage);
                         view.scrollToEndElement();
-                    }   
+                    }
+                }
+                if(type ===`added`){
+                    const docData = getDataFromDoc(oneChange.doc);
+                    model.conversations.push(docData);
+                    view.addConversation(docData);
                 }
             }
         });
 }
-
+model.createConversation = (data) => {
+    firebase.firestore().collection(model.collectionName).add(data);
+    view.setAtiveScreen('chatScreen',true); // them true vao de tranh hàm lắng nghe thay đổi nó thêm 1 lần nữa
+}

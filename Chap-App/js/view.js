@@ -49,6 +49,11 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
+            const signOutButton = document.getElementById("sign-out");
+            signOutButton.addEventListener("click", () => {
+                firebase.auth().signOut();
+                view.setAtiveScreen("loginScreen");
+            })
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
@@ -122,7 +127,7 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
             })
             break;
         /////////// man hinh createConversation
-        case `createConversation`:
+        case `createConversation`: // man hinh createConversation
             document.getElementById("app").innerHTML = components.createConversation;
             document.querySelector("#back-to-chat").addEventListener("click", function () {
                 view.setAtiveScreen(`chatScreen`, true);
@@ -131,13 +136,12 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
             createConversation.addEventListener("submit", (e) => {
                 e.preventDefault();
                 const newConversation = {
-                    conversationTitle: createConversation.conversationTitle.value,
-                    conversationEmail: createConversation.conversationEmail.value,
+                    conversationTitle: createConversation.conversationTitle.value, // lấy dữ liệu của trương name
+                    conversationEmail: createConversation.conversationEmail.value,  // lấy dữ liệu của trường email.
                 };
                 controller.createConversationScreen(newConversation);
-                firebase.firestore().collection('conversations').add(newConversation);
+                // firebase.firestore().collection('conversations').add(newConversation);
             });
-            model.addDocument(newConversation);
             break;
     }
 }
@@ -182,6 +186,19 @@ view.showCurrentConversation = () => {
         view.addMessage(message); // day tung cai tin nhan len man hinh bang vong lap for --- of 
     }
     view.scrollToEndElement();
+    view.showListUsers(model.currentConversation.users);
+}
+view.showListUsers = (users) => {
+    document.querySelector(".list-users").innerHTML = "";
+    for (user of users) {
+        view.addUser(user);
+    }
+}
+view.addUser = (user) => {
+    const userWrapper = document.createElement('div');
+    userWrapper.classList.add('user');
+    userWrapper.innerText = user;
+    document.querySelector(".list-users").appendChild(userWrapper);
 }
 
 view.scrollToEndElement = () => {
@@ -194,7 +211,7 @@ view.showConversation = () => {
         view.addConversation(oneConversation);
     }
 }
-view.addConversation = (conversation) => {
+view.addConversation = (conversation) => {  // conversation truyền vào từ lúc đầu => về sau sẽ bị cũ => dổi cái khác
     const conversationWrapper = document.createElement('div');
     conversationWrapper.className = 'conversation cursor'; /// them 2 class vao day
     if (model.currentConversation.id === conversation.id) {
@@ -208,11 +225,21 @@ view.addConversation = (conversation) => {
         // thay doi giao dien, doi current
         document.querySelector(".current").classList.remove("current");
         conversationWrapper.classList.add("current");
+
+        for (oneConversation of model.conversations) {
+            if (oneConversation.id === conversation.id) { // để ý phần conversation.id là ở view (=> không có s ở đằng sau)
+                model.currentConversation = oneConversation; // duyệt mảng message đê update lại alll các tin nhắn mình vừa nhập khi mình click sang cái khác => để không bị mất đi 
+            }
+        }
+
         //thay doi model.currentConversation
-        model.currentConversation = conversation;
         //in cac tin nhan cua model.currentConversation len man hinh
         view.showCurrentConversation();
     });
 
     document.querySelector(".list-conversation").appendChild(conversationWrapper);
+}
+
+view.setErrorMessage = (elementId, message) => {
+    document.getElementById(elementId).innerText = message;
 }

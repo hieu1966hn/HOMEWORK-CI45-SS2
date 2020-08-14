@@ -89,9 +89,10 @@
         </div>
     </div> -->
 
-    <!-- <div class="chat-container">
-        <div class="header">
+    <div class="chat-container">
+        <div style="position: relative;" class="header">
             MindX Chat
+            <div id="sign-out" class="cursor" style="border: none; background-color: rgb(207, 23, 23); position:absolute; top: 15px; right: 15px; font-size: 10px;width: fit-content;height: 30px; line-height: 30px; border-radius: 5px;">Sign-out</div>
         </div>
 
         <div class="main">
@@ -114,6 +115,7 @@
                     <div class="conversation"></div>
                 </div>
             </div>
+           
             <div class="conversation-detail">
                 <div class="conversation-header">
                     First conversation
@@ -143,10 +145,21 @@
                     </button>
                 </form>
             </div>
+            <div class="aside-right">
+                <div class="list-users">
+                </div>
+                <form id = "add-user-form">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Input friend email" name="email">
+                        <div class="error" id="add-user-email-error"></div>
+                    </div>
+                    <button class="btn" type="submit">Save</button>
+                </form>
+            </div>
         </div>
-    </div> -->
+    </div>
 
-    <div class="create-conversation-container">
+    <!-- <div class="create-conversation-container">
         <div class="header">
             MindX chat
         </div>
@@ -167,7 +180,7 @@
                 <button class="btn btn-light" type="button" id="back-to-chat">Cancel</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <script src="../js/controller.js"></script>
     <script src="../js/view.js"></script>

@@ -118,3 +118,22 @@
 .chat-container .list-conversation .conversation.current{ 
     background-color: #dbdbdb;
 }
+#sign-out{
+    transition: all 4s;
+}
+#sign-out:active{
+    transform: scale(1.4);
+}
+.chat-container .aside-right{
+    padding: 10px;
+    border-left: 1px solid #dbdbdb;
+    width: 15%;
+    /* overflow: hidden; */
+}
+.chat-container .aside-right .user{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chat-container #add-user-form{
+    margin-top: 12px;
+}
