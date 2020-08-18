@@ -2,11 +2,6 @@ const view = {}; // dùng để hiển thị lên màn hình giao diện cho ng�
 
 view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
     switch (screenName) {
-        case 'welcomeScreen':
-            document.getElementById("app").innerHTML = components.welcomeScreen;
-            // lí do có thể link đc với các file js khác ( do đều nhúng vào html);
-            break;
-        //////////////////////////
         case `loginScreen`:
             //// in ra màn hình đăng nhập
             document.getElementById("app").innerHTML = components.loginScreen;
@@ -49,11 +44,7 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
-            const signOutButton = document.getElementById("sign-out");
-            signOutButton.addEventListener("click", () => {
-                firebase.auth().signOut();
-                view.setAtiveScreen("loginScreen");
-            })
+           
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
@@ -69,10 +60,10 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
                         owner: model.currentUser.email,
                         createAt: (new Date()).toISOString(), //convert no sang string => de:
                     }
-                    const botMessage = {
-                        content: sendMessageForm.message.value,
-                        owner: `Bot`,
-                    }
+                    // const botMessage = {
+                    //     content: sendMessageForm.message.value,
+                    //     owner: `Bot`,
+                    // }
                     model.addMessage(message);
                     // view.addMessage(botMessage);
 
@@ -107,10 +98,8 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
                 //     messages: firebase.firestore.FieldValue.arrayUnion(message),
                 // };
                 // firebase.firestore().collection("conversations").doc(documentId).update(addMessage); // add all tin nhan len firebase google
-
-
-
             });
+
             if (!fromCreateConversation) {
                 model.loadConversations();  // mới vào sẽ hiển thị lên cuộc hội thoại
                 model.listenConversationsChange(); // lang nghe all change in conversation 
@@ -119,12 +108,26 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
                 view.showConversation();
                 view.showCurrentConversation();
             }
+            // Log out
+            const signOutButton = document.getElementById("sign-out");
+            signOutButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                firebase.auth().signOut();
+                view.setAtiveScreen("loginScreen");
+            });
 
-            // document.getElementById("app").innerHTML = components.createConversation;
-
+            // sang man createConversation.
             document.querySelector(".create-conversation .btn").addEventListener("click", function () {
                 view.setAtiveScreen('createConversation');
-            })
+            });
+
+            let addUserForm = document.getElementById("add-user-form")
+            addUserForm.addEventListener("submit", (e) => {
+                e.preventDefault()
+                const data = addUserForm.email.value;
+                controller.addUserConversation(data);
+                addUserForm.email.value = ''
+            });
             break;
         /////////// man hinh createConversation
         case `createConversation`: // man hinh createConversation

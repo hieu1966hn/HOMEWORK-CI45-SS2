@@ -49,7 +49,7 @@ controller.register = (data) => {
         innerText = 'Confirm password is error' : document.getElementById("confirm-password-error").
             innerText = '';
 
-/////////////// tạo user: 
+    /////////////// tạo user: 
     if (data.firstName !== '' && data.lastName !== "" &&
         data.email !== "" &&
         data.password !== "" &&
@@ -78,39 +78,44 @@ controller.login = (dataLogin) => {
             innerText = '';
     }
 
-    if(dataLogin.email !== ""&&
-    dataLogin.password !== ""){
+    if (dataLogin.email !== "" &&
+        dataLogin.password !== "") {
         model.login(dataLogin);
     }
 
 };
 controller.createConversationScreen = (newConversation) => { // nhận vào 1 giá trị data ( là object bắn ra từ conversation)
-    if(newConversation.conversationTitle.trim() === ''){
+    if (newConversation.conversationTitle.trim() === '') {
         document.getElementById('conversation-name-error').innerText = 'Please input conversation Name...'
     } else {
         document.getElementById('conversation-name-error').innerText = ''
     }
-    if(newConversation.conversationEmail.trim() === ''){
+    if (newConversation.conversationEmail.trim() === '') {
         document.getElementById('conversation-email-error').innerText = 'Please inpput conversation Email...'
     } else {
         document.getElementById('conversation-email-error').innerText = ''
     }
 
-    if(newConversation.conversationTitle.trim() !=="" && newConversation.conversationEmail.trim()!==""){
+    if (newConversation.conversationTitle.trim() !== "" && newConversation.conversationEmail.trim() !== "") {
         const data = {
             title: newConversation.conversationTitle,
-            users: [newConversation.conversationEmail,model.currentUser.email],
-            createdAt:(new Date()).toISOString(),
-            message:[]
+            users: [newConversation.conversationEmail, model.currentUser.email],
+            createdAt: (new Date()).toISOString(),
+            message: []
         }
         model.createConversation(data);
     }
 };
 
 
-//// controller chatApp nè
-// controller.chatApp = (dataChat)=>{
-//     if(dataChat.message != ``){
-//         model.chatScreen(dataChat);
-//     }
-// }
+controller.addUserConversation = (data) => {
+    if (data.trim() === "") {
+        view.setErrorMessage('add-user-email-error', 'please input a email');
+    } else {
+        view.setErrorMessage('add-user-email-error', "");
+    }
+
+    if (data.trim() !== "") {
+        model.newConversation(data);
+    }
+}

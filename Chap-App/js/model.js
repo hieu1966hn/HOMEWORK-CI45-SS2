@@ -70,10 +70,9 @@ model.addMessage = (message) => { // nhan vao la 1 tin nhan
 }
 
 model.loadConversations = async () => {
-    console.log('kkkk');
     const response = await firebase.firestore().collection(model.collectionName).where("users", "array-contains", model.currentUser.email).get(); // goi firebase de lay ve
     // array-contains: 
-    console.log(getDataFromDocs(response.docs));
+    // console.log(getDataFromDocs(response.docs));
     model.conversations = getDataFromDocs(response.docs); // lay du lieu ve
     if (model.conversations.length > 0) { // xet dk tranh truong hop khong ton tai cuoc tro chuyen nao ca
         model.currentConversation = model.conversations[0];
@@ -120,7 +119,7 @@ model.listenConversationsChange = () => {
                         view.scrollToEndElement();
                     }
                 }
-                if(type ===`added`){
+                if (type === `added`) {
                     const docData = getDataFromDoc(oneChange.doc);
                     model.conversations.push(docData);
                     view.addConversation(docData);
@@ -130,5 +129,12 @@ model.listenConversationsChange = () => {
 }
 model.createConversation = (data) => {
     firebase.firestore().collection(model.collectionName).add(data);
-    view.setAtiveScreen('chatScreen',true); // them true vao de tranh hàm lắng nghe thay đổi nó thêm 1 lần nữa
+    view.setAtiveScreen('chatScreen', true); // them true vao de tranh hàm lắng nghe thay đổi nó thêm 1 lần nữa
+}
+model.newConversation = async (data) => {
+    const dataToUpDate ={
+        users: firebase.firestore.FieldValue.arrayUnion(data),
+    }
+    await firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpDate);
+    view.setActiveScreen('chatScreen',true);
 }
