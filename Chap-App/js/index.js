@@ -1,9 +1,9 @@
 // file khởi tạo dự án của mình ( bắt sự kiện)
 const init = () => {
   console.log('Windown loaded');
-  view.setAtiveScreen('registerScreen');
+  // view.setAtiveScreen('registerScreen');
   // gọi hàm setAtive trong view
-  view.setAtiveScreen('loginScreen');
+  // view.setAtiveScreen('loginScreen');
 
 
   /////////////////
@@ -31,10 +31,10 @@ const init = () => {
         displayName: user.displayName,
         email: user.email
       };
-      view.setAtiveScreen('chatScreen');
+      view.setActiveScreen('chatScreen');
       // User is signed in.
     } else {
-      view.setAtiveScreen('loginScreen');
+      view.setActiveScreen('loginScreen');
       alert("Please check your email");
     }
   });

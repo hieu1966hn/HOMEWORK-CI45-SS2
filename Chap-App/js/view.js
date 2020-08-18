@@ -1,12 +1,12 @@
 const view = {}; // dùng để hiển thị lên màn hình giao diện cho người dùng
 
-view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
+view.setActiveScreen = (screenName, fromCreateConversation = false) => {
     switch (screenName) {
         case `loginScreen`:
             //// in ra màn hình đăng nhập
             document.getElementById("app").innerHTML = components.loginScreen;
             document.getElementById("redirect-to-register").addEventListener("click", () => {
-                view.setAtiveScreen('registerScreen');
+                view.setActiveScreen('registerScreen');
             });
             const loginForm = document.getElementById("login-form");
             loginForm.addEventListener("submit", (event) => {
@@ -24,7 +24,7 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
             // in ra man hinh đăng kí
             document.getElementById("app").innerHTML = components.registerScreen;
             document.getElementById("redirect-to-login").addEventListener("click", () => {
-                view.setAtiveScreen('loginScreen');
+                view.setActiveScreen('loginScreen');
             });
             const registerForm = document.getElementById("register-form");
             registerForm.addEventListener("submit", (event) => {
@@ -113,27 +113,27 @@ view.setAtiveScreen = (screenName, fromCreateConversation = false) => {
             signOutButton.addEventListener("click", (e) => {
                 e.preventDefault();
                 firebase.auth().signOut();
-                view.setAtiveScreen("loginScreen");
+                view.setActiveScreen("loginScreen");
             });
 
             // sang man createConversation.
             document.querySelector(".create-conversation .btn").addEventListener("click", function () {
-                view.setAtiveScreen('createConversation');
+                view.setActiveScreen('createConversation');
             });
 
-            let addUserForm = document.getElementById("add-user-form")
+            const addUserForm = document.getElementById("add-user-form")
             addUserForm.addEventListener("submit", (e) => {
                 e.preventDefault()
                 const data = addUserForm.email.value;
                 controller.addUserConversation(data);
-                addUserForm.email.value = ''
+                addUserForm.email.value = '';
             });
             break;
         /////////// man hinh createConversation
         case `createConversation`: // man hinh createConversation
             document.getElementById("app").innerHTML = components.createConversation;
             document.querySelector("#back-to-chat").addEventListener("click", function () {
-                view.setAtiveScreen(`chatScreen`, true);
+                view.setActiveScreen(`chatScreen`, true);
             });
             const createConversation = document.getElementById("create-conversation-form")
             createConversation.addEventListener("submit", (e) => {

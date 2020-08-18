@@ -18,7 +18,7 @@ model.register = async (data) => {
         });
         firebase.auth().currentUser.sendEmailVerification();
         alert("the email has been registed, please check your email");
-        view.setAtiveScreen('loginScreen');
+        view.setActiveScreen('loginScreen');
     } catch (err) { // no se ban error qua cai catch nay
         console.log(err);
         alert(err.message);
@@ -112,11 +112,17 @@ model.listenConversationsChange = () => {
 
                     // update model.currentConversation
                     if (docData.id === model.currentConversation.id) { // ve doc lai doan nay nhe
+                        if(docData.users.length !== model.currentConversation.users.length){
+                            view.addUser(docData.users[docData.users.length - 1])
+                        }
+                        else{
+                            const lastMessage = docData.messages[docData.messages.length - 1];
+                            view.addMessage(lastMessage);
+                            view.scrollToEndElement();
+                        }
                         model.currentConversation = docData;
                         // them 1 tin nhan cuoi cung la dep => do ton bo nho @@
-                        const lastMessage = docData.messages[docData.messages.length - 1];
-                        view.addMessage(lastMessage);
-                        view.scrollToEndElement();
+                      
                     }
                 }
                 if (type === `added`) {
@@ -129,12 +135,13 @@ model.listenConversationsChange = () => {
 }
 model.createConversation = (data) => {
     firebase.firestore().collection(model.collectionName).add(data);
-    view.setAtiveScreen('chatScreen', true); // them true vao de tranh hàm lắng nghe thay đổi nó thêm 1 lần nữa
+    view.setActiveScreen('chatScreen', true); // them true vao de tranh hàm lắng nghe thay đổi nó thêm 1 lần nữa
 }
-model.newConversation = async (data) => {
+model.addUser = async (user) => {
     const dataToUpDate ={
-        users: firebase.firestore.FieldValue.arrayUnion(data),
+        users: firebase.firestore.FieldValue.arrayUnion(user),
     }
     await firebase.firestore().collection(model.collectionName).doc(model.currentConversation.id).update(dataToUpDate);
-    view.setActiveScreen('chatScreen',true);
-}
+    // cú pháp để update của firebase
+    // view.setActiveScreen('chatScreen', true);
+}   

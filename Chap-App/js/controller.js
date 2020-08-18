@@ -84,6 +84,7 @@ controller.login = (dataLogin) => {
     }
 
 };
+
 controller.createConversationScreen = (newConversation) => { // nhận vào 1 giá trị data ( là object bắn ra từ conversation)
     if (newConversation.conversationTitle.trim() === '') {
         document.getElementById('conversation-name-error').innerText = 'Please input conversation Name...'
@@ -101,21 +102,21 @@ controller.createConversationScreen = (newConversation) => { // nhận vào 1 gi
             title: newConversation.conversationTitle,
             users: [newConversation.conversationEmail, model.currentUser.email],
             createdAt: (new Date()).toISOString(),
-            message: []
+            messages: []
         }
         model.createConversation(data);
     }
 };
 
 
-controller.addUserConversation = (data) => {
-    if (data.trim() === "") {
-        view.setErrorMessage('add-user-email-error', 'please input a email');
+controller.addUserConversation = (user) => {
+    if (user.trim() === "") {
+        view.setErrorMessage('add-user-email-error', 'please input friend email');
     } else {
         view.setErrorMessage('add-user-email-error', "");
     }
 
-    if (data.trim() !== "") {
-        model.newConversation(data);
+    if (user.trim() !== "") {
+        model.addUser(user);
     }
 }
