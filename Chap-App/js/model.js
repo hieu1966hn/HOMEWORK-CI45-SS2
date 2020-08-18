@@ -100,7 +100,7 @@ model.listenConversationsChange = () => {
             for (oneChange of docChanges) {
                 // console.log(oneChange);
                 const type = oneChange.type;
-                if (type == `modified`) {
+                if (type === `modified`) {
                     const docData = getDataFromDoc(oneChange.doc); //doc o day la du lieu trong document
                     console.log(docData);
                     // updata lai model.conversations
@@ -109,11 +109,14 @@ model.listenConversationsChange = () => {
                             model.conversations[index] = docData; // buoc dong bo firestore giong voi ca local cua minh @@
                         }
                     }
-
+                    if(docData.messages[docData.messages.length - 1].owner !== model.currentUser.email){
+                        view.showNotification(docData.id); 
+                    }
                     // update model.currentConversation
                     if (docData.id === model.currentConversation.id) { // ve doc lai doan nay nhe
                         if(docData.users.length !== model.currentConversation.users.length){
-                            view.addUser(docData.users[docData.users.length - 1])
+                            view.addUser(docData.users[docData.users.length - 1]);
+                            view.updateNumberUsers(docData.id, docData.users.length);
                         }
                         else{
                             const lastMessage = docData.messages[docData.messages.length - 1];

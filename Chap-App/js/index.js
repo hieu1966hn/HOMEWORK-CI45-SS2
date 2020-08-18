@@ -26,7 +26,7 @@ const init = () => {
 
   firebase.auth().onAuthStateChanged(function (user) {
     console.log(user);
-    if (user.emailVerified) {
+    if (user && user.emailVerified) {
       model.currentUser = {
         displayName: user.displayName,
         email: user.email

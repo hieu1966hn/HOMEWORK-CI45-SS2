@@ -113,6 +113,18 @@
 }
 .chat-container .list-conversation .conversation{
     padding: 0px 10px;
+    position: relative;
+}
+.chat-container .conversation .notification{
+    width: 12px;
+    height: 12px;
+    background: #383ac2;
+    border-radius: 50%;
+
+    position: absolute;
+    right: 8px;
+    top: 13px;
+    display: none;
 }
 /*  */
 .chat-container .list-conversation .conversation.current{ 

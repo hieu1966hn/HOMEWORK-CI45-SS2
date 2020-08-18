@@ -44,7 +44,7 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
         ///////////// màn hình chatScreen
         case `chatScreen`:
             document.getElementById("app").innerHTML = components.chatScreen;
-           
+
             // document.getElementById("redirect-to-chatScreen").
             //     addEventListener("submit", () => {
             //         view.setAtiveScreen("chatScreen");
@@ -69,35 +69,6 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
 
                     sendMessageForm.message.value = '';
                 }
-
-
-                ///////////////////// thu cach nay nha
-
-                // const message ={
-                //     content: sendMessageForm.message.value,
-                //     owner: model.currentUser.email,
-                //     createAt: (new Date()).toISOString(), // convert no sang string => de:
-                // }; //tam comment lai buoc nay
-                // const botMessage = {
-                //     content: sendMessageForm.message.value,
-                //     owner: `Bot`,
-                // }
-                // const reg = /\S/g; // bo comment
-                /////// xu lí chuỗi 
-
-                // if (message.content == '' || !reg.test(message.content)) {
-                //     sendMessageForm.message.value = '';
-                // } else {
-                //     model.addMessage(message);
-                //     // view.addMessage(botMessage);
-                // } // nho bo comment
-
-                // sendMessageForm.message.value = "";
-                // const documentId = "GeCzYmLfCIV6epHKe5z8";
-                // const addMessage = {
-                //     messages: firebase.firestore.FieldValue.arrayUnion(message),
-                // };
-                // firebase.firestore().collection("conversations").doc(documentId).update(addMessage); // add all tin nhan len firebase google
             });
 
             if (!fromCreateConversation) {
@@ -128,6 +99,10 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
                 controller.addUserConversation(data);
                 addUserForm.email.value = '';
             });
+            document.querySelector("#send-messages-form input").
+                addEventListener("click", () => {
+                    view.hideNotification(model.currentConversation.id);
+                })
             break;
         /////////// man hinh createConversation
         case `createConversation`: // man hinh createConversation
@@ -217,12 +192,14 @@ view.showConversation = () => {
 view.addConversation = (conversation) => {  // conversation truyền vào từ lúc đầu => về sau sẽ bị cũ => dổi cái khác
     const conversationWrapper = document.createElement('div');
     conversationWrapper.className = 'conversation cursor'; /// them 2 class vao day
+    conversationWrapper.id = conversation.id;
     if (model.currentConversation.id === conversation.id) {
         conversationWrapper.classList.add('current');
     }
     conversationWrapper.innerHTML = `
     <div class = "conversation-title">${conversation.title}</div>
     <div class = "conversation-num-user">${conversation.users.length} users</div>   
+    <div class = "notification"></div>
     `
     conversationWrapper.addEventListener('click', () => {
         // thay doi giao dien, doi current
@@ -238,6 +215,7 @@ view.addConversation = (conversation) => {  // conversation truyền vào từ l
         //thay doi model.currentConversation
         //in cac tin nhan cua model.currentConversation len man hinh
         view.showCurrentConversation();
+        view.hideNotification(conversation.id); // để khi click vào nó sẽ mất đi cái chấm xanh thông báo.
     });
 
     document.querySelector(".list-conversation").appendChild(conversationWrapper);
@@ -245,4 +223,21 @@ view.addConversation = (conversation) => {  // conversation truyền vào từ l
 
 view.setErrorMessage = (elementId, message) => {
     document.getElementById(elementId).innerText = message;
+}
+view.updateNumberUsers = (docId, numberUsers) => {
+    const conversation = document.getElementById(docId);
+    const secondChild = conversation.getElementsByTagName('div')[1];
+    console.log(secondChild); // đã ra => không phải sử dụng lastElmentChild nua => chuyen sang sd cai nay
+    // conversation.lastElementChild.innerText = numberUsers + ` users`; // lấy thằng con cuối cùng của nó
+    secondChild.innerText = numberUsers + ` users`;
+}
+view.showNotification = (conversationId) => {
+    const conversation = document.getElementById(conversationId);
+    conversation.lastElementChild.style = 'display: block';
+    /////// thu cach query nhe
+    // document.querySelector(`${conversationId} .notification`); /// có 1 cái dở: query nó không chấp nhận những cái Id bắt đầu bằng số ==> ta không dùng cách này; => sd cách ở bên trên
+}
+view.hideNotification = (conversationId) => {
+    const conversation = document.getElementById(conversationId);
+    conversation.lastElementChild.style = 'display: none';
 }
