@@ -163,8 +163,8 @@
         display: flex;
         border-radius: 50%;
         border: 1px solid #dbdbdb;
-        width: 64px;
-        height: 64px;
+        width: 32px;
+        height: 32px;
         align-items: center; 
         justify-content: center;
         margin-bottom: 10px;

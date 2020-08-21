@@ -204,13 +204,25 @@ view.addConversation = (conversation) => {  // conversation truyền vào từ l
     ////
 
     const mediaQuery = window.matchMedia('(max-width: 768px)');
-    console.log(mediaQuery); // sử dụng đê check xem nó có nhỏ hơn 768px thật không  @@
-    if(mediaQuery.matches){
+    // console.log(mediaQuery); // sử dụng đê check xem nó có nhỏ hơn 768px thật không  @@
+    if (mediaQuery.matches) { // cái này là render lần đầu tiên => vẫn cần phải set cái này. Sau lần đầu render => không sử dùng đc nữa @@
         const fistCharacter = conversation.title.charAt(0).toUpperCase();
         // console.log(conversationWrapper.firstElementChild);
         conversationWrapper.firstElementChild.innerText = fistCharacter; /// firstElementChild chi ap dung voi con dau va con cuoi
         document.querySelector(".create-conversation .btn").innerText = "+"; // co the viet the nay de thay doi lai text cho the class = btn dua vao thang cha cua no
     }
+    ///
+    mediaQuery.addListener((e) => { // lắng nghe sự kiện
+        if (e.matches === true) {
+            const fistCharacter = conversation.title.charAt(0).toUpperCase();
+            conversationWrapper.firstElementChild.innerText = fistCharacter; /// firstElementChild chi ap dung voi con dau va con cuoi
+            document.querySelector(".create-conversation .btn").innerText = "+";
+        }
+        else {
+            conversationWrapper.firstElementChild.innerText = conversation.title; /// firstElementChild chi ap dung voi con dau va con cuoi
+            document.querySelector(".create-conversation .btn").innerText = "+New Conversation";
+        }
+    })
     ////
     conversationWrapper.addEventListener('click', () => {
         // thay doi giao dien, doi current
