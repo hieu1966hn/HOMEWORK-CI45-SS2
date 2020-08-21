@@ -200,7 +200,18 @@ view.addConversation = (conversation) => {  // conversation truyền vào từ l
     <div class = "conversation-title">${conversation.title}</div>
     <div class = "conversation-num-user">${conversation.users.length} users</div>   
     <div class = "notification"></div>
-    `
+    `;
+    ////
+
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    console.log(mediaQuery); // sử dụng đê check xem nó có nhỏ hơn 768px thật không  @@
+    if(mediaQuery.matches){
+        const fistCharacter = conversation.title.charAt(0).toUpperCase();
+        // console.log(conversationWrapper.firstElementChild);
+        conversationWrapper.firstElementChild.innerText = fistCharacter; /// firstElementChild chi ap dung voi con dau va con cuoi
+        document.querySelector(".create-conversation .btn").innerText = "+"; // co the viet the nay de thay doi lai text cho the class = btn dua vao thang cha cua no
+    }
+    ////
     conversationWrapper.addEventListener('click', () => {
         // thay doi giao dien, doi current
         document.querySelector(".current").classList.remove("current");

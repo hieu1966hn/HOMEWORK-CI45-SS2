@@ -6,7 +6,7 @@ components.registerScreen = `
 <div class="register-container">
         <div class="aside-right">
             <div class="header">
-                <h3>MindX Chat</h3>
+                <h3 style="color: #ffffff;">MindX Chat</h3>
             </div>
 
             <form id="register-form">
