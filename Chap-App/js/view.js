@@ -103,6 +103,10 @@ view.setActiveScreen = (screenName, fromCreateConversation = false) => {
                 addEventListener("click", () => {
                     view.hideNotification(model.currentConversation.id);
                 })
+                document.querySelector(".side-bar").addEventListener('click',()=>{
+                    document.querySelector(".aside-right").classList.toggle('show'); // no se check trong nay co class show chua( kieu bot buoc check if else);
+                    document.querySelector(".side-bar").classList.toggle('move-side-bar');
+                });
             break;
         /////////// man hinh createConversation
         case `createConversation`: // man hinh createConversation

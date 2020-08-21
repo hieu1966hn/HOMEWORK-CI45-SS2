@@ -35,7 +35,7 @@ const init = () => {
       // User is signed in.
     } else {
       view.setActiveScreen('loginScreen');
-      alert("Please check your email");
+      // alert("Please check your email"); check cc
     }
   });
   //   firebase.analytics();

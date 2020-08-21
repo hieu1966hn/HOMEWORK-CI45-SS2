@@ -27,6 +27,12 @@
     font-size: 32px;
     border-bottom: 0.5px solid #cfcccc;
 }
+.header .side-bar{
+    position: absolute;
+    color: black;
+    display: none;
+}
+
 
 .chat-container .main .conversation-detail{
     display: flex;
@@ -152,6 +158,14 @@
 .chat-container #add-user-form{
     margin-top: 12px;
 }
+.show{
+    height: 100%;
+    position: fixed;
+    display: block !important;
+    right: 0;
+    background: #ffffff;
+    width: 30% !important;
+}
 @media screen and (max-width: 768px){
     .aside-right{
         display: none;
@@ -170,11 +184,20 @@
         margin-bottom: 10px;
         margin: auto;
     }
+    .side-bar{
+        top: 63px;
+        right: 13px;
+        color: #027bdf;
+        display: block !important;
+    }
         /* .chat-container .list-conversation{
         } */
     .conversation .notification{
         top: 23px!important; 
         /* khi bị không cho ghi đè thuộc tính ( tính theo điểm CSS: anh Khiêm nói) -> ta sử dụng !important để ưu tiên thứ tự tính theo điểm */
     }
+}
 
+.move-side-bar{
+    right: 31%;
 }

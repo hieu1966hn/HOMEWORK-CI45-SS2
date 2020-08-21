@@ -79,10 +79,13 @@ components.chatScreen = `
 <div class="chat-container">
         <div class="header">
             MindX Chat
+            <div class = "side-bar">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </div> 
              <div id="sign-out" class="cursor" style="border: none; background-color: rgb(207, 23, 23); position:absolute; top: 15px; right: 15px; font-size: 10px;width: fit-content;height: 30px; line-height: 30px; border-radius: 5px;">Sign-out</div>
         </div>
 
-        <div class="main">
+            <div class="main">
         <div class="aside-left">
             <div class="create-conversation">
                 <button class="btn">
