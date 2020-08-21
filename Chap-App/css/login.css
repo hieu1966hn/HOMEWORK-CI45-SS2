@@ -16,7 +16,6 @@
     width: 28%;
     text-align: center;
 }
-
 .login-container .aside-right .header h3{
     font-size: 40px;
     font-family: Arial, Helvetica, sans-serif;
@@ -47,4 +46,10 @@
 }
 #redirect-to-register:hover{
     color: red;
+}
+@media screen and (max-width: 768px){
+    .login-container .aside-right{
+        display: block;
+        width: 100%;
+    }
 }
